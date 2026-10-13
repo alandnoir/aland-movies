@@ -1,85 +1,243 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b0b0c">
-<meta name="description" content="Aland Movies — discover movies and TV series.">
-<title>Aland Movies | Discover Cinema</title>
-<style>
-:root{--bg:#09090b;--panel:#121214;--panel2:#19191c;--gold:#d8b45a;--gold2:#f2d889;--text:#f7f5ef;--muted:#aaa8a1;--line:#2a2925}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#2a2110 0%,var(--bg) 52%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
-button,input{font:inherit}.wrap{width:min(1160px,92%);margin:auto}.top{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line);gap:18px}.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:.4px;font-size:1.18rem}.mark{width:38px;height:38px;border:1px solid var(--gold);border-radius:12px;display:grid;place-items:center;color:var(--gold);font-size:1.25rem;background:#17140c}.brand span:last-child{color:var(--gold)}.controls{display:flex;gap:10px;align-items:center}.lang,.navbtn{background:#171719;color:var(--text);border:1px solid #34332e;border-radius:10px;padding:10px 12px;cursor:pointer}.lang:hover,.navbtn:hover{border-color:var(--gold)}
-.hero{padding:56px 0 30px;display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:center}.eyebrow{color:var(--gold);font-size:.78rem;font-weight:800;letter-spacing:2px;text-transform:uppercase}.hero h1{font-size:clamp(2.5rem,6vw,4.7rem);line-height:.99;letter-spacing:-2px;margin:14px 0 18px;max-width:680px}.hero h1 em{color:var(--gold);font-style:normal}.hero p{color:var(--muted);max-width:550px;line-height:1.7;margin:0 0 24px}.searchbox{display:flex;gap:10px;max-width:570px}.searchbox input{width:100%;min-width:0;background:#151517;border:1px solid #39372f;border-radius:12px;padding:14px 15px;color:var(--text);outline:none}.searchbox input:focus{border-color:var(--gold)}.searchbox button,.goldbtn{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#17130a;border:0;border-radius:12px;padding:0 18px;font-weight:800;cursor:pointer;white-space:nowrap}
-.hero-art{min-height:280px;border:1px solid #4b3c1d;border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(145deg,#30240c,#111114 62%);display:flex;align-items:end;padding:24px;box-shadow:0 18px 65px #0008}.hero-art:before{content:"";position:absolute;width:230px;height:230px;border:1px solid #d8b45a66;border-radius:50%;top:-55px;right:-20px;box-shadow:0 0 0 22px #d8b45a0d,0 0 0 45px #d8b45a0a}.hero-art:after{content:"AM";position:absolute;right:22px;top:40px;font-size:6rem;font-weight:950;color:#d8b45a1c;letter-spacing:-8px}.art-copy{position:relative;z-index:1}.art-copy small{color:var(--gold2);letter-spacing:2px}.art-copy h2{font-size:2rem;margin:8px 0}.art-copy p{margin:0;color:#c7c2b5}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:26px 0 18px}.section-head h2{font-size:1.35rem;margin:0}.section-head h2:before{content:"";display:inline-block;width:4px;height:21px;background:var(--gold);margin-right:10px;vertical-align:-4px;border-radius:4px}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid #34332e;background:#141416;color:#bbb8ae;padding:8px 13px;border-radius:100px;cursor:pointer}.filter.active{background:#d8b45a;color:#16120a;border-color:#d8b45a;font-weight:800}
-.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}.card{background:var(--panel);border:1px solid #29282a;border-radius:15px;overflow:hidden;transition:transform .2s,border-color .2s;cursor:pointer}.card:hover{transform:translateY(-4px);border-color:#8d743a}.poster{height:250px;position:relative;display:flex;align-items:end;padding:15px;overflow:hidden;background:linear-gradient(145deg,var(--c1),#111 80%)}.poster:before{content:"";position:absolute;width:170px;height:210px;border:1px solid #ffffff25;border-radius:50%;top:-45px;left:25%;transform:rotate(25deg)}.poster:after{content:attr(data-symbol);position:absolute;inset:0;display:grid;place-items:center;font-size:5.2rem;font-weight:950;color:#ffffff18}.poster-label{z-index:1;font-size:.68rem;letter-spacing:2px;color:#fff9;border:1px solid #ffffff55;padding:5px 8px;border-radius:6px;text-transform:uppercase}.rating{position:absolute;top:10px;right:10px;background:#0a0a0bdc;color:var(--gold2);border:1px solid #d8b45a77;border-radius:8px;padding:5px 7px;font-size:.8rem;font-weight:800;z-index:2}.card-info{padding:13px}.card-info h3{margin:0 0 7px;font-size:.98rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:space-between;gap:8px}.type{color:var(--gold)}.empty{display:none;color:var(--muted);padding:30px 0}.about{margin:44px 0 25px;padding:22px;border:1px solid var(--line);border-radius:16px;background:#111113}.about h2{margin:0 0 8px;color:var(--gold)}.about p{color:var(--muted);line-height:1.7;margin:0}.footer{padding:24px 0 35px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:#85837d;font-size:.8rem}.footer b{color:var(--gold)}
-body.kurdish{font-family:Tahoma,"Segoe UI",sans-serif}body.kurdish .hero h1{letter-spacing:0;line-height:1.25}body.kurdish .section-head h2:before{margin-right:0;margin-left:10px}body.kurdish .hero-art:after{right:auto;left:22px}body.kurdish .rating{right:auto;left:10px}
-@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{grid-template-columns:1fr}.hero-art{min-height:210px}.poster{height:230px}}
-@media(max-width:560px){.top{align-items:flex-start}.brand{font-size:1rem}.mark{width:34px;height:34px}.controls{gap:6px}.lang,.navbtn{padding:8px;font-size:.8rem}.hero{padding-top:35px}.hero h1{letter-spacing:-1px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.poster{height:220px}.section-head{align-items:flex-start;flex-direction:column}.searchbox button{padding:0 12px}.footer{flex-direction:column}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<header class="top">
-  <div class="brand"><div class="mark">✦</div><div>ALAND <span>MOVIES</span></div></div>
-  <div class="controls"><button class="navbtn" id="homeBtn">⌂ <span data-en="Home" data-ku="سەرەکی">Home</span></button><button class="lang" id="langBtn">کوردی</button></div>
-</header>
-<main>
-<section class="hero">
-  <div>
-    <div class="eyebrow" data-en="YOUR CINEMA UNIVERSE" data-ku="جیهانی تایبەتی سینەمای تۆ">YOUR CINEMA UNIVERSE</div>
-    <h1 data-en="Stories that stay <em>with you.</em>" data-ku="چیرۆکەکان لەگەڵ <em>تۆ دەمێننەوە.</em>">Stories that stay <em>with you.</em></h1>
-    <p data-en="Discover movies and series, explore ratings, and find your next unforgettable story." data-ku="فلیم و زنجیرەکان بدۆزەرەوە، نمرەکانیان ببینە و چیرۆکی داهاتووی خۆت هەڵبژێرە.">Discover movies and series, explore ratings, and find your next unforgettable story.</p>
-    <div class="searchbox"><input id="searchInput" type="search" placeholder="Search movies and series..." aria-label="Search"><button id="searchBtn" class="goldbtn" data-en="Search" data-ku="گەڕان">Search</button></div>
-  </div>
-  <div class="hero-art"><div class="art-copy"><small data-en="WELCOME TO" data-ku="بەخێربێیت بۆ">WELCOME TO</small><h2>Aland Movies</h2><p data-en="Every story has a world." data-ku="هەر چیرۆکێک جیهانێکی هەیە.">Every story has a world.</p></div></div>
-</section>
-<section>
-  <div class="section-head"><h2 data-en="Explore titles" data-ku="گەڕان بە فلیم و زنجیرەکاندا">Explore titles</h2><div class="filters"><button class="filter active" data-filter="all" data-en="All" data-ku="هەموو">All</button><button class="filter" data-filter="movie" data-en="Movies" data-ku="فلیم">Movies</button><button class="filter" data-filter="series" data-en="Series" data-ku="زنجیرە">Series</button></div></div>
-  <div class="grid" id="movieGrid"></div>
-  <div class="empty" id="emptyMsg" data-en="No titles found. Try another search." data-ku="هیچ ئەنجامێک نەدۆزرایەوە. وشەیەکی تر تاقی بکەرەوە.">No titles found. Try another search.</div>
-</section>
-<section class="about"><h2 data-en="About Aland Movies" data-ku="دەربارەی Aland Movies">About Aland Movies</h2><p data-en="A personal cinema guide for movie and series fans. This starter edition uses sample titles; connect a movie database API to show live information and posters." data-ku="ڕێنمایەکی تایبەت بە خۆت بۆ دۆستدارانی فلیم و زنجیرە. ئەم وەشانەی سەرەتایی ناوی نموونەیی بەکاردەهێنێت؛ بۆ زانیاری و پۆستەری ڕاستەقینە داتابەیسێکی فلیم پێوە ببەستە.">A personal cinema guide for movie and series fans. This starter edition uses sample titles; connect a movie database API to show live information and posters.</p></section>
-</main>
-<footer class="footer"><span>© <span id="year"></span> <b>Aland Movies</b></span><span data-en="Made for cinema lovers • Movie data demo" data-ku="بۆ دۆستدارانی سینەما • وەشانی نموونەیی">Made for cinema lovers • Movie data demo</span></footer>
-</div>
 <script>
-const titles=[
- {name:"Stranger Things",year:2016,rate:"8.7",type:"series",symbol:"ST",color:"#3b101b",genre:"Sci-Fi"},
- {name:"The Walking Dead",year:2010,rate:"8.1",type:"series",symbol:"TWD",color:"#31402c",genre:"Drama"},
- {name:"From",year:2022,rate:"7.8",type:"series",symbol:"FROM",color:"#27372e",genre:"Mystery"},
- {name:"Prison Break",year:2005,rate:"8.3",type:"series",symbol:"PB",color:"#343b43",genre:"Crime"},
- {name:"Inception",year:2010,rate:"8.8",type:"movie",symbol:"IN",color:"#1a344b",genre:"Sci-Fi"},
- {name:"Interstellar",year:2014,rate:"8.7",type:"movie",symbol:"IS",color:"#443629",genre:"Sci-Fi"},
- {name:"The Dark Knight",year:2008,rate:"9.0",type:"movie",symbol:"DK",color:"#28282b",genre:"Action"},
- {name:"Dune: Part Two",year:2024,rate:"8.5",type:"movie",symbol:"DUNE",color:"#70502d",genre:"Adventure"},
- {name:"Breaking Bad",year:2008,rate:"9.5",type:"series",symbol:"BB",color:"#62562b",genre:"Crime"},
- {name:"The Last of Us",year:2023,rate:"8.7",type:"series",symbol:"TLOU",color:"#344234",genre:"Drama"}
-];
-let lang="en",filter="all";
-const grid=document.getElementById("movieGrid"),input=document.getElementById("searchInput");
-function t(en,ku){return lang==="en"?en:ku}
-function render(){
- const q=input.value.trim().toLowerCase();
- const found=titles.filter(x=>(filter==="all"||x.type===filter)&&(x.name.toLowerCase().includes(q)||x.genre.toLowerCase().includes(q)||String(x.year).includes(q)));
- grid.innerHTML=found.map(x=>`<article class="card" tabindex="0" title="${x.name}"><div class="poster" style="--c1:${x.color}" data-symbol="${x.symbol}"><span class="rating">★ ${x.rate}</span><span class="poster-label">${x.type==="movie"?t("MOVIE","فلیم"):t("SERIES","زنجیرە")}</span></div><div class="card-info"><h3>${x.name}</h3><div class="meta"><span>${x.year}</span><span class="type">${x.genre}</span></div></div></article>`).join("");
- document.getElementById("emptyMsg").style.display=found.length?"none":"block";
+
+let lang = "en", filter = "all";
+
+const grid = document.getElementById("movieGrid");
+
+const input = document.getElementById("searchInput");
+
+const emptyMsg = document.getElementById("emptyMsg");
+
+let titles = [];
+
+let requestId = 0;
+
+function t(en, ku) {
+
+  return lang === "en" ? en : ku;
+
 }
-function setLanguage(next){
- lang=next;document.body.classList.toggle("kurdish",lang==="ku");document.documentElement.lang=lang==="ku"?"ckb":"en";document.documentElement.dir=lang==="ku"?"rtl":"ltr";
- document.querySelectorAll("[data-en]").forEach(el=>{el.innerHTML=el.dataset[lang]});
- document.getElementById("langBtn").textContent=lang==="en"?"کوردی":"English";
- input.placeholder=t("Search movies and series...","بگەڕێ بۆ فلیم و زنجیرە...");
- render();
+
+async function loadTitles(query = "") {
+
+  const id = ++requestId;
+
+  grid.innerHTML = "";
+
+  emptyMsg.style.display = "block";
+
+  emptyMsg.textContent = t("Loading titles...", "چاوەڕێ بکە...");
+
+  
+
+  try {
+
+    let shows = [];
+
+    if (query.trim()) {
+
+      const res = await fetch(
+
+        "https://api.tvmaze.com/search/shows?q=" +
+
+        encodeURIComponent(query.trim())
+
+      );
+
+      if (!res.ok) throw new Error("Request failed");
+
+      shows = (await res.json()).map(item => item.show);
+
+    } else {
+
+      const res = await fetch("https://api.tvmaze.com/shows?page=0");
+
+      if (!res.ok) throw new Error("Request failed");
+
+      shows = await res.json();
+
+    }
+
+    if (id !== requestId) return;
+
+    titles = shows.map(show => ({
+
+      name: show.name || "Untitled",
+
+      year: show.premiered ? show.premiered.slice(0, 4) : "—",
+
+      rate: show.rating?.average ?? "—",
+
+      type: "series",
+
+      genre: show.genres?.[0] || "TV",
+
+      poster: show.image?.medium || show.image?.original || "",
+
+      summary: show.summary || ""
+
+    }));
+
+    render();
+
+  } catch (error) {
+
+    if (id !== requestId) return;
+
+    emptyMsg.style.display = "block";
+
+    emptyMsg.textContent = t(
+
+      "Could not load titles. Check your internet and try again.",
+
+      "نەتوانرا زانیارییەکان بهێنرێن. ئینتەرنێتەکەت بپشکنە و دووبارە هەوڵ بدەرەوە."
+
+    );
+
+  }
+
 }
-document.getElementById("langBtn").addEventListener("click",()=>setLanguage(lang==="en"?"ku":"en"));
-document.getElementById("searchBtn").addEventListener("click",render);
-input.addEventListener("input",render);
-document.querySelectorAll(".filter").forEach(btn=>btn.addEventListener("click",()=>{filter=btn.dataset.filter;document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b===btn));render()}));
-document.getElementById("homeBtn").addEventListener("click",()=>{input.value="";filter="all";document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.dataset.filter==="all"));render();window.scrollTo({top:0,behavior:"smooth"})});
-document.getElementById("year").textContent=new Date().getFullYear();
-render();
+
+function render() {
+
+  const q = input.value.trim().toLowerCase();
+
+  const found = titles.filter(x =>
+
+    (filter === "all" || filter === x.type) &&
+
+    (x.name.toLowerCase().includes(q) ||
+
+     x.genre.toLowerCase().includes(q) ||
+
+     String(x.year).includes(q))
+
+  );
+
+  grid.innerHTML = found.map((x, i) => `
+
+    <article class="card" tabindex="0" data-index="${i}">
+
+      <div class="poster" style="--c1:#27242b;${x.poster ? `background-image:linear-gradient(0deg,#09090b99,transparent),url('${x.poster}');background-size:cover;background-position:center` : ""}" data-symbol="✦">
+
+        <span class="rating">★ ${x.rate}</span>
+
+        <span class="poster-label">${t("SERIES", "زنجیرە")}</span>
+
+      </div>
+
+      <div class="card-info">
+
+        <h3>${escapeHTML(x.name)}</h3>
+
+        <div class="meta"><span>${x.year}</span><span class="type">${escapeHTML(x.genre)}</span></div>
+
+      </div>
+
+    </article>
+
+  `).join("");
+
+  emptyMsg.style.display = found.length ? "none" : "block";
+
+  if (!found.length) emptyMsg.textContent = t("No titles found.", "هیچ زنجیرەیەک نەدۆزرایەوە.");
+
+}
+
+function escapeHTML(value) {
+
+  return String(value).replace(/[&<>"']/g, c => ({
+
+    "&": "&amp;", "<": "&lt;", ">": "&gt;",
+
+    '"': "&quot;", "'": "&#39;"
+
+  }[c]));
+
+}
+
+function setLanguage(next) {
+
+  lang = next;
+
+  document.body.classList.toggle("kurdish", lang === "ku");
+
+  document.documentElement.lang = lang === "ku" ? "ckb" : "en";
+
+  document.documentElement.dir = lang === "ku" ? "rtl" : "ltr";
+
+  document.querySelectorAll("[data-en]").forEach(el => {
+
+    el.innerHTML = el.dataset[lang];
+
+  });
+
+  document.getElementById("langBtn").textContent =
+
+    lang === "en" ? "کوردی" : "English";
+
+  input.placeholder = t("Search TV series...", "بگەڕێ بۆ زنجیرە...");
+
+  render();
+
+}
+
+document.getElementById("langBtn").addEventListener("click", () => {
+
+  setLanguage(lang === "en" ? "ku" : "en");
+
+});
+
+document.getElementById("searchBtn").addEventListener("click", () => {
+
+  loadTitles(input.value);
+
+});
+
+input.addEventListener("keydown", e => {
+
+  if (e.key === "Enter") loadTitles(input.value);
+
+});
+
+document.querySelectorAll(".filter").forEach(btn => {
+
+  btn.addEventListener("click", () => {
+
+    filter = btn.dataset.filter;
+
+    document.querySelectorAll(".filter").forEach(b =>
+
+      b.classList.toggle("active", b === btn)
+
+    );
+
+    render();
+
+  });
+
+});
+
+document.getElementById("homeBtn").addEventListener("click", () => {
+
+  input.value = "";
+
+  filter = "all";
+
+  document.querySelectorAll(".filter").forEach(b =>
+
+    b.classList.toggle("active", b.dataset.filter === "all")
+
+  );
+
+  loadTitles();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+loadTitles();
+
 </script>
-</body>
-</html>
